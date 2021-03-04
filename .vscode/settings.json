@@ -11,6 +11,9 @@
   ],
   "files.associations": {
     "*.tm": "yaml",
-    "game.h": "c"
+    "game.h": "c",
+    "world.h": "c",
+    "world_parser.h": "c",
+    "sstream": "c"
   }
 }

@@ -1,5 +1,8 @@
 #include "world.h"
 
+static const uint8_t cardinal_vectors[4][2] = {
+    {-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
 bool has_player_won(const World* world) {
   for (size_t line = 0; line < world->height; line += 1) {
     for (size_t col = 0; col < world->width; col += 1) {

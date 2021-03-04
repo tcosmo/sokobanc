@@ -20,12 +20,22 @@ char map_byte_to_txt_char(uint8_t map_byte) {
   return SYMB_EMPTY;
 }
 
-void print_world(World* world) {
-  for (size_t line = 0; line < world->height; line += 1) {
-    for (size_t col = 0; col < world->width; col += 1) {
-      printf("%c", map_byte_to_txt_char(world->map[line][col]));
-    }
-    printf("\n");
+uint8_t txt_char_to_map_byte(char txt_char) {
+  switch (txt_char) {
+    case SYMB_WALL:
+      return FLAG_WALL;
+    case SYMB_CRATE:
+      return FLAG_CRATE;
+    case SYMB_GOAL:
+      return FLAG_GOAL;
+    case SYMB_CRATE_ON_GOAL:
+      return FLAG_GOAL + FLAG_CRATE;
+    case SYMB_PLAYER:
+      return FLAG_PLAYER;
+    case SYMB_PLAYER_ON_GOAL:
+      return FLAG_GOAL + FLAG_PLAYER;
+    default:
+      return EMPTY;
   }
 }
 
@@ -45,25 +55,6 @@ bool init_parser(WorldParser* parser, const char* level_file_path) {
 
   fclose(level_file);
   return parser->number_of_levels != 0;
-}
-
-uint8_t txt_char_to_map_byte(char txt_char) {
-  switch (txt_char) {
-    case SYMB_WALL:
-      return FLAG_WALL;
-    case SYMB_CRATE:
-      return FLAG_CRATE;
-    case SYMB_GOAL:
-      return FLAG_GOAL;
-    case SYMB_CRATE_ON_GOAL:
-      return FLAG_GOAL + FLAG_CRATE;
-    case SYMB_PLAYER:
-      return FLAG_PLAYER;
-    case SYMB_PLAYER_ON_GOAL:
-      return FLAG_GOAL + FLAG_PLAYER;
-    default:
-      return EMPTY;
-  }
 }
 
 bool load_level(WorldParser* parser, World* world) {
@@ -115,4 +106,13 @@ bool load_level(WorldParser* parser, World* world) {
   world->width = level_width;
 
   return true;
+}
+
+void print_world(World* world) {
+  for (size_t line = 0; line < world->height; line += 1) {
+    for (size_t col = 0; col < world->width; col += 1) {
+      printf("%c", map_byte_to_txt_char(world->map[line][col]));
+    }
+    printf("\n");
+  }
 }

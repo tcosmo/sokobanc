@@ -5,5 +5,12 @@
   "clang-format.fallbackStyle": "google",
   "clang-format.assumeFilename": ".clang-format",
   "C_Cpp.default.cStandard": "c11",
-  "C_Cpp.default.includePath": ["${workspaceFolder}/**", "~/.conan/data/**"]
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/**",
+    "~/.conan/data/**"
+  ],
+  "files.associations": {
+    "*.tm": "yaml",
+    "game.h": "c"
+  }
 }

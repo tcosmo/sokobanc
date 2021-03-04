@@ -1,23 +1,21 @@
-#include <SDL2/SDL.h>
+#include "game.h"
+#include "world.h"
+#include "world_parser.h"
+
+static const char* LEVEL_FILE = "assets/levels/level_set_1.txt";
 
 int main() {
-  SDL_Window* window;
-
-  SDL_Init(SDL_INIT_VIDEO);
-
-  window =
-      SDL_CreateWindow("Sokoban!!", SDL_WINDOWPOS_UNDEFINED,
-                       SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
-
-  if (window == NULL) {
-    printf("Could not create window: %s\n", SDL_GetError());
+  if (!init_parser(LEVEL_FILE)) {
+    printf("Invalid level file `%s`. Abort.\n", LEVEL_FILE);
     return 1;
   }
 
-  SDL_Delay(3000);
+  World world;
 
-  SDL_DestroyWindow(window);
+  // Loading first level
+  load_level(&world, 0);
 
-  SDL_Quit();
+  run_game(&world);
+
   return 0;
 }

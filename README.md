@@ -32,3 +32,48 @@ cmake ..
 make
 ./bin/sokobanc
 ```
+
+## Sokoban format
+
+Here is an example level file containing two levels:
+
+```
+1
+    #####
+    #   #
+    #$  #
+  ###  $##
+  #  $ $ #
+### # ## #   ######
+#   # ## #####  ..#
+# $  $          ..#
+##### ### #@##  ..#
+    #     #########
+    #######
+~
+2
+############
+#..  #     ###
+#..  # $  $  #
+#..  #$####  #
+#..    @ ##  #
+#..  # #  $ ##
+###### ##$ $ #
+  # $  $ $ $ #
+  #    #     #
+  ############
+~
+```
+
+The following symbols are used:
+
+- `#` is a wall
+- `$` is a crate
+- `.` is a goal
+- `*` is a crate on a goal
+- `@` is the player
+- `+` is the player on a goal
+
+## Credits
+
+Sprite Sheet: 1001.com

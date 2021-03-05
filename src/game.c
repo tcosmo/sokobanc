@@ -65,9 +65,43 @@ int run_game(World* world) {
 
   bool is_game_running = true;
   while (is_game_running) {
+    if (has_player_won(world)) {
+      parser.current_level += 1;
+      if (parser.current_level == parser.number_of_levels) {
+        is_game_running = false;
+        break;
+      }
+      if (load_current_level(&parser, world)) {
+        print_world(world);
+      }
+    }
+
     SDL_Event event;
     if (SDL_PollEvent(&event)) {
       if (event.type == SDL_QUIT) is_game_running = false;
+
+      if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+          case SDLK_ESCAPE:
+            is_game_running = false;
+            break;
+          case SDLK_UP:
+            move_player(world, NORTH);
+            break;
+          case SDLK_DOWN:
+            move_player(world, SOUTH);
+            break;
+          case SDLK_LEFT:
+            move_player(world, WEST);
+            break;
+          case SDLK_RIGHT:
+            move_player(world, EAST);
+            break;
+          case SDLK_r:
+            load_current_level(&parser, world);
+            break;
+        }
+      }
     }
 
     SDL_SetRenderDrawColor(renderer, 100, 149, 237, 255);

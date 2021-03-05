@@ -56,8 +56,12 @@ void render_view(SDL_Renderer* renderer, WorldView* view) {
       }
 
       if (view->world->map[line][col] & FLAG_CRATE) {
-        SDL_RenderCopy(renderer, view->spritesheet, &RECT_CRATE,
-                       &current_screen_pos);
+        if (view->world->map[line][col] & FLAG_GOAL)
+          SDL_RenderCopy(renderer, view->spritesheet, &RECT_CRATE_ON_GOAL,
+                         &current_screen_pos);
+        else
+          SDL_RenderCopy(renderer, view->spritesheet, &RECT_CRATE,
+                         &current_screen_pos);
       }
 
       if (view->world->map[line][col] & FLAG_PLAYER) {

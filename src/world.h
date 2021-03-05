@@ -26,4 +26,4 @@ typedef struct {
 } World;
 
 bool has_player_won(const World* world);
-bool move_player(World* world, size_t dir);
+void move_player(World* world, size_t dir);

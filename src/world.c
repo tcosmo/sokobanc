@@ -1,7 +1,7 @@
+#include <stdio.h>
 #include "world.h"
 
-static const uint8_t cardinal_vectors[4][2] = {
-    {-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+static const size_t cardinal_vectors[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
 bool has_player_won(const World* world) {
   for (size_t line = 0; line < world->height; line += 1) {
@@ -21,7 +21,8 @@ bool is_position_valid(const World* world, size_t line, size_t col) {
 }
 
 bool is_position_valid_and_empty(const World* world, size_t line, size_t col) {
-  return is_position_valid(world, line, col) && world->map[line][col] == EMPTY;
+  return is_position_valid(world, line, col) &&
+         (world->map[line][col] == EMPTY || world->map[line][col] == FLAG_GOAL);
 }
 
 void move_object(World* world, uint8_t flag_object, size_t old_line,
@@ -33,18 +34,18 @@ void move_object(World* world, uint8_t flag_object, size_t old_line,
   world->map[new_line][new_col] |= flag_object;
 }
 
-bool move_player(World* world, size_t dir) {
+void move_player(World* world, size_t dir) {
   for (size_t line = 0; line < world->height; line += 1) {
     for (size_t col = 0; col < world->width; col += 1) {
       if (world->map[line][col] & FLAG_PLAYER) {
         // We've found the player
         size_t new_line = line + cardinal_vectors[dir][0];
-        size_t new_col = line + cardinal_vectors[dir][1];
+        size_t new_col = col + cardinal_vectors[dir][1];
 
         // There is nothing on the position we aim
         if (is_position_valid_and_empty(world, new_line, new_col)) {
           move_object(world, FLAG_PLAYER, line, col, new_line, new_col);
-          return true;
+          return;
         }
 
         // There is a crate on the position we aim
@@ -60,14 +61,10 @@ bool move_player(World* world, size_t dir) {
                         new_col_crate);
             // We move the player
             move_object(world, FLAG_PLAYER, line, col, new_line, new_col);
-            return true;
+            return;
           }
         }
-
-        // Otherwise we can't move
-        return false;
       }
     }
   }
-  assert(false);
 }

@@ -7,6 +7,7 @@ static const char* SPRITESHEET_PATH = "assets/images/spritesheet/sprites.png";
 
 static const SDL_Rect RECT_WALL = {0, 320, 64, 64};
 static const SDL_Rect RECT_CRATE = {192, 256, 64, 64};
+static const SDL_Rect RECT_CRATE_ON_GOAL = {256, 256, 64, 64};
 static const SDL_Rect RECT_GOAL = {0, 384, 32, 32};
 static const SDL_Rect RECT_PLAYER = {362, 248, 37, 59};
 

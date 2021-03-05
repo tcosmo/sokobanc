@@ -29,10 +29,8 @@ void move_object(World* world, uint8_t flag_object, size_t old_line,
   assert(is_position_valid(world, old_line, old_col));
   assert(is_position_valid(world, new_line, new_col));
 
-  world->map[old_line][old_col] =
-      set_flag(world->map[old_line][old_col], flag_object, false);
-  world->map[new_line][new_col] =
-      set_flag(world->map[old_line][old_col], flag_object, true);
+  world->map[old_line][old_col] &= ~flag_object;
+  world->map[new_line][new_col] |= flag_object;
 }
 
 bool move_player(World* world, size_t dir) {

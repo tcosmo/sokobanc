@@ -2,11 +2,7 @@
   "configurations": [
     {
       "name": "Linux",
-      "includePath": [
-        "${default}",
-        "/home/cosmo/.conan/data/**",
-        "/home/cosmo/.conan/data/sdl2_image/**"
-      ],
+      "includePath": ["${default}", "~/.conan/data/**"],
       "defines": [],
       "compilerPath": "/usr/bin/clang",
       "cppStandard": "c++14",

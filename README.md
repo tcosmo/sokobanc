@@ -30,7 +30,7 @@ mkdir build
 conan install ..
 cmake ..
 make
-./bin/sokobanc
+(cd bin && ./bin/sokobanc)
 ```
 
 ## Sokoban format
